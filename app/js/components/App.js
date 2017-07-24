@@ -3,19 +3,19 @@ import { createStore } from 'redux'
 
 const initialState = {
     result: 1,
-    lastVal
+    lastVal: []
 }
 const reducer = (state = initialState, action) => {
     switch(action.type) {
         case 'GET_REPOS':
-            state = state + action.payload;
+            state.result += action.payload;
             break;
         case 'SAERCH':
             break;
     }
     return state;
 }
-const store = createStore(reducer, 1);
+const store = createStore(reducer);
 
 store.subscribe(() => {
     console.log('store update', store.getState())
