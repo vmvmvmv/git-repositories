@@ -1,39 +1,17 @@
 import React from 'react'
-import { createStore } from 'redux'
+import store from './store'
+import reducer from './reducer'
 
-const initialState = {
-    result: 1,
-    lastVal: []
-}
-const reducer = (state = initialState, action) => {
-    switch(action.type) {
-        case 'GET_REPOS':
-            state.result += action.payload;
-            break;
-        case 'SAERCH':
-            break;
-    }
-    return state;
-}
-const store = createStore(reducer);
 
-store.subscribe(() => {
-    console.log('store update', store.getState())
-})
 
-store.dispatch({
-    type: "GET_REPOS",
-    payload: 10 
-})
-
-const Languages = () => {
+const Languages = (props) => {
     let languages = ['all', 'javascript', 'ruby', 'java', 'css', 'python'];
 
     return (
         <div className='nav'>
             {languages.map((item,index) => {
                 return (
-                    <div className='item' key={index}>{item}</div>
+                    <div className='item' key={index} onClick={props.getRepos.bind(null, item)}>{item}</div>
                 )
             })}
         </div>
@@ -41,10 +19,23 @@ const Languages = () => {
 }
 
 export default class App extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.getRepos = this.getRepos.bind(this);
+    }
+
+    getRepos(language) {
+        store.dispatch({
+            type: "GET_REPOS",
+            payload: language 
+        })
+    }
+
     render() {
         return (
             <div>
-                <Languages />
+                <Languages getRepos={this.getRepos} />
                 repos
             </div>
         )
