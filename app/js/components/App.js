@@ -3,15 +3,15 @@ import { Provider, connect } from 'react-redux'
 import store from './store'
 import reducer from '../reducers/repos'
 
+import { getRepos } from '../actions/repos'
+import { test } from '../actions/test'
+ 
    
 
 
 const Languages = (props) => {
     let languages = ['all', 'javascript', 'ruby', 'java', 'css', 'python'];
-    store.dispatch({
-        type: 'TEST',
-        payload: 'aaaa'
-    }) 
+
     return (
         <Provider store={store}>
             <div className='nav'>
@@ -32,11 +32,12 @@ class App extends React.Component {
         this.getRepos = this.getRepos.bind(this);
     }
 
+    componentDidMount() {
+        store.dispatch(test('some data')) 
+    }
+
     getRepos(language) {
-        store.dispatch({
-            type: "GET_REPOS",
-            payload: language 
-        })
+        store.dispatch(getRepos(language))
     }
 
     render() {
