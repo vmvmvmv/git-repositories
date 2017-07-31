@@ -1,8 +1,10 @@
 import axios from 'axios'
+import store from '../components/store'
 
 const reducer = (state = {
     choosenLanguage: 'all',
-    repos: {}
+    repos: {},
+    test: ''
 }, action) => {
     switch(action.type) {
         case 'GET_REPOS':
@@ -15,10 +17,15 @@ const reducer = (state = {
                 ...state,
                 repos: response,
             };
-           
             break;
+        case 'TEST':
+            state = {
+                ...state,
+                test: action.payload
+            }
     }
     return state;
 }
+
 
 export default reducer;

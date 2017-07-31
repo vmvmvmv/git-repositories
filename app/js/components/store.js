@@ -1,8 +1,10 @@
-import { createStore } from 'redux'
-import reducer from './reducer'
+import { createStore, applyMiddleware } from 'redux'
+import reducer from '../reducers/repos'
+import logger from 'redux-logger'
 
-const store = createStore(reducer);
+const store = createStore(
+    reducer, 
+    applyMiddleware(logger)
+);
 
-store.subscribe(() => {
-    console.log('store update', store.getState())
-})
+export default store;

@@ -1,24 +1,31 @@
 import React from 'react'
+import { Provider, connect } from 'react-redux'
 import store from './store'
-import reducer from './reducer'
+import reducer from '../reducers/repos'
 
+   
 
 
 const Languages = (props) => {
     let languages = ['all', 'javascript', 'ruby', 'java', 'css', 'python'];
-
+    store.dispatch({
+        type: 'TEST',
+        payload: 'aaaa'
+    }) 
     return (
-        <div className='nav'>
-            {languages.map((item,index) => {
-                return (
-                    <div className='item' key={index} onClick={props.getRepos.bind(null, item)}>{item}</div>
-                )
-            })}
-        </div>
+        <Provider store={store}>
+            <div className='nav'>
+                {languages.map((item,index) => {
+                    return (
+                        <div className='item' key={index} onClick={props.getRepos.bind(null, item)}>{item}</div>
+                    )
+                })}
+            </div>
+        </Provider>
     )
 }
 
-export default class App extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props)
 
@@ -41,3 +48,22 @@ export default class App extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        state: state
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        test: (value) => {
+            dispatch({
+                type: 'TEST',
+                payload: value
+            })
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispathToProps)(App)
