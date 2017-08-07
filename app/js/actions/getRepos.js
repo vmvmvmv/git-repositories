@@ -9,7 +9,7 @@ export function getReposSuccess(reposes) {
 export function fetchReposData(language) {
     return (dispatch) => {
         var ecnodeURI = window.encodeURI("https://api.github.com/search/repositories?q=stars:>1+language:" 
-       +language+"&sort=stars&order=desc&type=Repositories");
+                        + language + "&sort=stars&order=desc&type=Repositories");
 
         return axios.get(ecnodeURI)
             .then((response) => {
