@@ -1,11 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import store from './store'
-import reducer from '../reducers/repos'
 
-import { fetchReposData } from '../actions/getRepos'
-import { test } from '../actions/test'
- 
+import { getReposSuccess } from '../main/actions'
+import store from '../store'
+
+const mapStateToProps = (state) => {
+    return {
+        state: state
+    }
+};
+
+const mapDispathToProps = (dispatch) => {
+    return {
+        getRepos: (language) => dispatch(getReposSuccess(language))
+    }
+}
 
 const Languages = (props) => {
     let languages = ['all', 'javascript', 'ruby', 'java', 'css', 'python'];
@@ -14,7 +23,7 @@ const Languages = (props) => {
         <div className='nav'>
             {languages.map((item,index) => {
                 return (
-                    <div className='item' key={index} onClick={props.getRepos.bind(null, item)}>{item}</div>
+                    <div className='item' key={index}>{item}</div>
                 )
             })}
         </div>
@@ -51,40 +60,19 @@ class App extends React.Component {
     constructor(props) {
         super(props)
     }
-
     componentDidMount() {
-        // this.props.test('datatata')
-        // console.log(this.props.state)
-        this.props.fetchPosts(this.props.state.choosenLanguage);
+        this.props.getRepos('all')
     }
 
     render() {
         return (
             <div>
-                <Languages getRepos={this.props.fetchPosts} />
-                { this.props.state.repos ? <RepoGrid repos={this.props.state.repos} /> : <div>Loading...</div>}
+                <Languages />
+                {
+                    // { this.props.state.repos ? <RepoGrid repos={this.props.state.repos} /> : <div>Loading...</div>} 
+                }
             </div>
         )
-    }
-}
-
-const mapStateToProps = (state) => {
-    return {
-        state: state
-    }
-};
-
-const mapDispathToProps = (dispatch) => {
-    return {
-        test: (value) => {
-            dispatch({
-                type: 'TEST',
-                payload: value
-            })
-        },
-        fetchPosts: (language) => {
-            dispatch(fetchReposData(language))
-        } 
     }
 }
 
