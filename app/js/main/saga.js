@@ -1,31 +1,26 @@
 import axios from 'axios'
+
 import { call, put, takeLatest, all } from 'redux-saga/effects'
-import { getReposSuccess, GET_REPOS_SUCCESS } from './actions'
+import { 
+    GET_REPOS_REQUEST,
+    getReposRequest, 
+    getReposSuccess,
+    getReposFail
+} from './actions'
 
-// function getRepos(language) {
-//     return axios.get(`https://api.github.com/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories`)
-//         .then((response) => {
-//             console.log('res ', response)
-//         })
-//         .catch((err) => console.log(err))
-// }
 
-function* callGetRepos(action) {
-    console.log(action)
-    let language = action.payload
-
+function* getRepos(action) {
     try {
+        let language = action.payload;
         const {data} = yield call(axios.get, 
             `https://api.github.com/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories`)
-        console.log(data)
-        yield put(getReposSuccess(data.items))
+        data.language = language
+        yield put(getReposSuccess(data))
     } catch (err) {
-        console.log('err ', err)
+        yield put(getReposFail)
     }
 }
 
-export default function* root() {
-    yield all ([
-        takeLatest(GET_REPOS_SUCCESS, callGetRepos)
-    ])
+export default function* main() {
+    yield takeLatest(GET_REPOS_REQUEST, getRepos)
 }

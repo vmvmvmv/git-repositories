@@ -1,24 +1,24 @@
-// import axios from 'axios'
-
-// export const GET_REPOS = 'GET_REPOS'
-
+export const GET_REPOS_REQUEST = 'GET_REPOS_REQUEST'
 export const GET_REPOS_SUCCESS = 'GET_REPOS_SUCCESS'
+export const GET_REPOS_FAIL = 'GET_REPOS_FAIL'
 
-export function getReposSuccess(reposes) {
+export const getReposRequest = (language) => {
+    return {
+        type: GET_REPOS_REQUEST,
+        payload: language
+    }
+}
+
+export const getReposSuccess = (reposes) => {
     return {
         type: GET_REPOS_SUCCESS,
         payload: reposes
     }
 }
-// export function fetchReposData(language) {
-    // return (dispatch) => {
-    //     let ecnodeURI = window.encodeURI("https://api.github.com/search/repositories?q=stars:>1+language:" 
-    //                     + language + "&sort=stars&order=desc&type=Repositories");
 
-    //     return axios.get(ecnodeURI)
-    //         .then((response) => {
-    //             console.log(response)
-    //             dispatch(getReposSuccess(response.data.items))
-    //         })
-    // }
-// }
+export const getReposFail = (error) => {
+    return {
+        type: GET_REPOS_FAIL,
+        payload: error
+    }
+}

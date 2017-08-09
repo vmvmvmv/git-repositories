@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { getReposSuccess } from '../main/actions'
+import { getReposRequest } from '../main/actions'
 import store from '../store'
 
 const mapStateToProps = (state) => {
@@ -12,18 +12,25 @@ const mapStateToProps = (state) => {
 
 const mapDispathToProps = (dispatch) => {
     return {
-        getRepos: (language) => dispatch(getReposSuccess(language))
+        getRepos: (language) => dispatch(getReposRequest(language))
     }
 }
 
 const Languages = (props) => {
     let languages = ['all', 'javascript', 'ruby', 'java', 'css', 'python'];
-
+    console.log(props)
     return (
         <div className='nav'>
             {languages.map((item,index) => {
                 return (
-                    <div className='item' key={index}>{item}</div>
+                    <div 
+                        className={props.choosenLang == item ? 'active' : null}
+                        key={index} 
+                        onClick={props.getRepos.bind(null, item)}
+
+                    >
+                        {item}
+                    </div>
                 )
             })}
         </div>
@@ -32,12 +39,12 @@ const Languages = (props) => {
 
 const RepoGrid = (props) => {
     return (
-        <ul className="popular-list">
+        <ul className="repos-list">
             {props.repos.map((repo, index) => {
                 return (
-                    <li key={index} className="popular-item">
-                        <div className="popular-rank">#{index + 1}</div>
-                        <ul className="space-list-items">
+                    <li key={index} className="item">
+                        <div className="rank">#{index + 1}</div>
+                        <ul className="space-list">
                             <li>
                                 <img
                                     className="avatar"
@@ -46,8 +53,8 @@ const RepoGrid = (props) => {
                                 />
                             </li>
                             <li><a href={repo.html_url}>{repo.name}</a></li>
-                            <li>@{repo.owner.login}</li>
-                            <li>{repo.stargazers_count}</li>
+                            <li className="login">@{repo.owner.login}</li>
+                            <li className="stars">stars: {repo.stargazers_count}</li>
                         </ul>
                     </li>
                 )
@@ -60,17 +67,16 @@ class App extends React.Component {
     constructor(props) {
         super(props)
     }
+
     componentDidMount() {
-        this.props.getRepos('all')
+        this.props.getRepos(this.props.state.choosenLang)
     }
 
     render() {
         return (
             <div>
-                <Languages />
-                {
-                    // { this.props.state.repos ? <RepoGrid repos={this.props.state.repos} /> : <div>Loading...</div>} 
-                }
+                <Languages getRepos={this.props.getRepos} choosenLang={this.props.state.choosenLang} />
+                    { this.props.state.repos ? <RepoGrid repos={this.props.state.repos} /> : <div>Loading...</div>} 
             </div>
         )
     }
