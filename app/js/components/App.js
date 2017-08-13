@@ -18,7 +18,7 @@ const mapDispathToProps = (dispatch) => {
 
 const Languages = (props) => {
     let languages = ['all', 'javascript', 'ruby', 'java', 'css', 'python'];
-    console.log(props)
+    
     return (
         <div className='nav'>
             {languages.map((item,index) => {
