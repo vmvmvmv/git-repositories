@@ -10,14 +10,10 @@ const reducer = (state = {
         case 'GET_REPOS_SUCCESS':
             state = {
                 ...state,
-                repos: action.payload
+                repos: action.payload.reposes,
+                choosenLanguage: action.payload.language
             }
             break;
-        case 'TEST':
-            state = {
-                ...state,
-                test: action.payload
-            }
     }
     return state;
 }
