@@ -74,7 +74,8 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='content'>
+                <h1>Git repositories sorted by stars</h1>
                 <Languages getRepos={this.props.getRepos} choosenLang={this.props.state.choosenLang} />
                     { this.props.state.repos ? <RepoGrid repos={this.props.state.repos} /> : <div>Loading...</div>} 
             </div>

@@ -1,5 +1,10 @@
 body {
     text-align: center;
+
+    h1 {
+        font-family: 'Podkova';
+        font-size: 32px;
+    }
 }
 .nav {
     border-bottom: 3px solid #47c9af;
@@ -33,7 +38,7 @@ body {
                 background: #47c9af;
                 position: absolute;
                 left: 0;
-                bottom: 0;
+                bottom: -1px;
                 right: 0;
                 z-index: -1;
                 width: 100%;
