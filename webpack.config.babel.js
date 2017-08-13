@@ -21,7 +21,7 @@ const Config = {
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 options: {
-                    presets: ['react', 'env', 'stage-2']
+                    presets: ['react', 'env', 'stage-2', 'es2015']
                 }
             },
             {
