@@ -30,20 +30,6 @@ const Config = {
                     use: ['css-loader', 'resolve-url-loader', 'sass-loader'],
                     fallback: "style-loader"
                 })
-            },
-            {
-                test: /\.(jpg|png|svg|gif)$/,
-                loaders: [
-                    'file-loader?name=/images/[name].[ext]',
-                    'image-webpack-loader'
-                ]
-            },
-            {
-                test: /\.(mp4|webm)$/,
-                loader: 'file-loader',
-                options: {
-                    name: 'video/[name].[ext]'
-                }
             }
         ]
     },
