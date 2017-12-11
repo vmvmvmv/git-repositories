@@ -10,7 +10,7 @@ const extractSass = new ExtractTextPlugin({
 const Config = {
     entry: './app/js/index.js',
     output: {
-        path: path.resolve(__dirname, './dist'),
+        path: path.resolve(__dirname, './docs'),
         filename: 'bundle.js',
         publicPath: '/'
     },
