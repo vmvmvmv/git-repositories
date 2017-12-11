@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispathToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         getRepos: (language) => dispatch(getReposRequest(language))
     }
