@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/web-wtm/git-repositories#readme",
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.19.0",
     "history": "^4.6.1",
     "query-string": "^4.3.4",
     "react": "^15.5.4",
